@@ -1,6 +1,17 @@
 # Tetris (JavaScript)
 
-Et simpelt browser-baseret Tetris-spil bygget i vanilla JS + HTML Canvas.
+Et browser-baseret Tetris-spil bygget i vanilla JS + HTML Canvas.
+
+## Play online
+
+https://allanldk.github.io/Tetris/
+
+## Features
+
+- Klassisk Tetris gameplay
+- Highscore gemmes i browser (`localStorage`)
+- Lette lydeffekter (WebAudio)
+- Touch controls til mobil
 
 ## Kør lokalt
 

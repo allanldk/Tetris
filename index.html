@@ -13,6 +13,7 @@
       <canvas id="game" width="300" height="600" aria-label="Tetris board"></canvas>
       <div class="panel">
         <p><strong>Score:</strong> <span id="score">0</span></p>
+        <p><strong>Highscore:</strong> <span id="highscore">0</span></p>
         <p><strong>Lines:</strong> <span id="lines">0</span></p>
         <p><strong>Level:</strong> <span id="level">1</span></p>
         <p><strong>Next:</strong></p>
@@ -30,6 +31,16 @@
         </details>
       </div>
     </div>
+
+    <div class="touch-controls" aria-label="Touch controls">
+      <button data-act="left">◀</button>
+      <button data-act="rotate">⟳</button>
+      <button data-act="right">▶</button>
+      <button data-act="down">▼</button>
+      <button data-act="drop">⤓</button>
+      <button data-act="pause">⏯</button>
+    </div>
+
     <p id="status" class="status"></p>
   </div>
   <script src="game.js"></script>
