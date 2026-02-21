@@ -122,6 +122,43 @@ document.addEventListener('keydown', e => {
 
 restartBtn.addEventListener('click', resetGame);
 
+// Touch/swipe controls directly on canvas (mobile)
+let touchStartX = 0, touchStartY = 0, touchMoved = false;
+canvas.addEventListener('touchstart', (e) => {
+  if (!e.touches || !e.touches[0]) return;
+  touchMoved = false;
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+canvas.addEventListener('touchmove', (e) => {
+  touchMoved = true;
+  e.preventDefault();
+}, { passive: false });
+
+canvas.addEventListener('touchend', (e) => {
+  const t = e.changedTouches && e.changedTouches[0];
+  if (!t) return;
+  const dx = t.clientX - touchStartX;
+  const dy = t.clientY - touchStartY;
+  const ax = Math.abs(dx), ay = Math.abs(dy);
+  const THRESHOLD = 24;
+
+  // Tap = rotate
+  if (!touchMoved || (ax < THRESHOLD && ay < THRESHOLD)) {
+    playerRotate();
+    return;
+  }
+
+  if (ax > ay) {
+    if (dx > THRESHOLD) move(1);
+    else if (dx < -THRESHOLD) move(-1);
+  } else {
+    if (dy > THRESHOLD) playerDrop();
+    else if (dy < -THRESHOLD) hardDrop();
+  }
+}, { passive: true });
+
 document.querySelectorAll('.touch-controls button').forEach(btn => {
   const run = () => {
     const a = btn.dataset.act;

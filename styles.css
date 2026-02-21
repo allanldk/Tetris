@@ -18,13 +18,13 @@ body {
 .wrap { width: min(920px, 95vw); padding: 10px; }
 h1 { margin: 0 0 14px; }
 .game-area { display: grid; grid-template-columns: auto 220px; gap: 16px; align-items: start; }
-canvas#game { background: #090b14; border: 2px solid #2a345f; box-shadow: 0 10px 35px rgba(0,0,0,.4); }
+canvas#game { background: #090b14; border: 2px solid #2a345f; box-shadow: 0 10px 35px rgba(0,0,0,.4); touch-action: none; }
 .panel { background: var(--panel); border: 1px solid #2a345f; border-radius: 10px; padding: 12px; }
 .panel p { margin: 8px 0; }
 #next { background: #0b0e1a; border: 1px solid #2a345f; margin-bottom: 10px; }
 button {
   border: none; padding: 10px; border-radius: 8px; background: var(--accent);
-  color: #07231f; font-weight: 700; cursor: pointer;
+  color: #07231f; font-weight: 700; cursor: pointer; touch-action: manipulation;
 }
 #restart { width: 100%; }
 .status { color: var(--muted); min-height: 1.2em; }
