@@ -11,6 +11,7 @@ const statusEl = document.getElementById('status');
 const restartBtn = document.getElementById('restart');
 
 const COLORS = { I:'#22d3ee', O:'#facc15', T:'#c084fc', S:'#4ade80', Z:'#fb7185', J:'#60a5fa', L:'#fb923c' };
+const EMOJIS = { I:'🧊', O:'🟨', T:'💜', S:'🍀', Z:'🔥', J:'💎', L:'🟧' };
 const SHAPES = {
   I:[[1,1,1,1]], O:[[1,1],[1,1]], T:[[0,1,0],[1,1,1]],
   S:[[0,1,1],[1,1,0]], Z:[[1,1,0],[0,1,1]], J:[[1,0,0],[1,1,1]], L:[[0,0,1],[1,1,1]]
@@ -92,9 +93,25 @@ function playerRotate(){
   for(const k of [0,-1,1,-2,2]) if(!collide(current,k,0,r)){ current.shape=r; current.x += k; beep(700,0.02,'triangle',0.02); return; }
 }
 
-function drawCell(x,y,color,c=ctx,size=BLOCK){ c.fillStyle=color; c.fillRect(x*size,y*size,size,size); c.strokeStyle='rgba(0,0,0,.25)'; c.strokeRect(x*size,y*size,size,size); }
-function drawBoard(){ ctx.clearRect(0,0,canvas.width,canvas.height); for(let y=0;y<ROWS;y++) for(let x=0;x<COLS;x++) if(board[y][x]) drawCell(x,y,COLORS[board[y][x]]); }
-function drawPiece(piece,c=ctx,ox=0,oy=0,size=BLOCK){ piece.shape.forEach((r,y)=>r.forEach((v,x)=>{ if(v) drawCell(piece.x+x+ox,piece.y+y+oy,COLORS[piece.type],c,size); })); }
+function drawCell(x,y,color,c=ctx,size=BLOCK,emoji=''){
+  c.fillStyle=color;
+  c.fillRect(x*size,y*size,size,size);
+  c.strokeStyle='rgba(0,0,0,.25)';
+  c.strokeRect(x*size,y*size,size,size);
+  if (emoji) {
+    c.font = `${Math.floor(size * 0.62)}px system-ui, Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji`;
+    c.textAlign = 'center';
+    c.textBaseline = 'middle';
+    c.fillText(emoji, x * size + size / 2, y * size + size / 2 + 1);
+  }
+}
+function drawBoard(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  for(let y=0;y<ROWS;y++) for(let x=0;x<COLS;x++) if(board[y][x]) drawCell(x,y,COLORS[board[y][x]],ctx,BLOCK,EMOJIS[board[y][x]]);
+}
+function drawPiece(piece,c=ctx,ox=0,oy=0,size=BLOCK){
+  piece.shape.forEach((r,y)=>r.forEach((v,x)=>{ if(v) drawCell(piece.x+x+ox,piece.y+y+oy,COLORS[piece.type],c,size,EMOJIS[piece.type]); }));
+}
 function drawNext(){
   nctx.clearRect(0,0,nextCanvas.width,nextCanvas.height);
   const size=24, w=nextPiece.shape[0].length, h=nextPiece.shape.length;
